@@ -1,0 +1,12 @@
+global proc pointDistance() {
+    string $points[] = `ls -sl`;
+    if (size($points) == 2) {
+        vector $point1 = pointPosition($points[0]);
+        vector $point2 = pointPosition($points[1]);
+        float $distance[] = {$point1.x - $point2.x, $point1.y - $point2.y, $point1.z - $point2.z};
+        print($distance);
+    }
+    else {
+        print("必须选择两个点，之后执行操作");
+    }
+}

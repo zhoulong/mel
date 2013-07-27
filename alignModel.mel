@@ -1,0 +1,14 @@
+global proc alignModel() {
+    string $objPattern = "[A-Za-z0-9_|]+";
+    string $vetexPattern = $objPattern + "\.cv(\[[0-9]+])+";
+    string $cvs[] = `ls -sl`;
+    if (size($cvs) == 2 && match($objPattern, $cvs[0]) != match($objPattern, $cvs[1]) && match($vetexPattern, $cvs[0]) == $cvs[0] && match($vetexPattern, $cvs[1]) == $cvs[1]) {
+        vector $point1 = pointPosition($cvs[0]);
+        vector $point2 = pointPosition($cvs[1]);
+        move("-r", $point1.x - $point2.x, $point1.y - $point2.y, $point1.z - $point2.z, listRelatives("-p", match($objPattern, $cvs[1])));
+    }
+    else {
+        print("必须选中不同模型上的两个顶点之后，才能操作");
+    }
+}
+
